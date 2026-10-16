@@ -17,14 +17,25 @@ export class MoviesPage {
         await expect(this.page.locator('.alert')).toHaveText(target)
     }
 
-    async createMovie(title, overview, company, release_year) {
+    async createMovie(movie) {
         await this.goForm()
-        await this.page.locator('#title').fill(title)
-        await this.page.locator('#overview').fill(overview)
-        await this.page.locator('#select_company_id .react-select__dropdown-indicator').click()
-        await this.page.locator('.react-select__option').filter({ hasText: company }).click()
-        await this.page.locator('#select_year .react-select__indicator').click()
-        await this.page.locator('.react-select__option').filter({ hasText: release_year }).click()
+        await this.page.locator('#title').fill(movie.title)
+        await this.page.locator('#overview').fill(movie.overview)
+        await this.page.locator('#select_company_id .react-select__dropdown-indicator')
+            .click()
+        await this.page.locator('.react-select__option')
+            .filter({ hasText: movie.company })
+            .click()
+        await this.page.locator('#select_year .react-select__indicator')
+            .click()
+        await this.page.locator('.react-select__option')
+            .filter({ hasText: movie.release_year })
+            .click()
+        await this.page.locator('input[name=cover]')
+            .setInputFiles('tests/support/fixtures' + movie.cover)
+        if (movie.featured) {
+            await this.page.locator('.react-switch').click()
+        }
         await this.submitForm()
     }
 }
