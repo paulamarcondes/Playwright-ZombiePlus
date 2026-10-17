@@ -7,37 +7,37 @@ test.beforeEach(async ({ loginPage }) => {
 })
 
 
-test('deve logar como adminstrador', async ({ loginPage }) => {
+test('should log in as admin', async ({ loginPage }) => {
     await loginPage.submitAdminForm('admin@zombieplus.com', 'pwd123')
     await loginPage.isLoggedIn()
 })
 
 
-test('não deve logar com email incorreto', async ({ loginPage, popup }) => {
-    await loginPage.submitAdminForm('errado@zombieplus.com', 'pwd123')
+test('should not log in with wrong email', async ({ loginPage, popup }) => {
+    await loginPage.submitAdminForm('wrong@zombieplus.com', 'pwd123')
     await popup.haveText(LOGIN_ERROR)
 })
 
 
-test('não deve logar com senha incorreta', async ({ loginPage, popup }) => {
-    await loginPage.submitAdminForm('admin@zombieplus.com', 'errado123')
+test('should not log in with wrong password', async ({ loginPage, popup }) => {
+    await loginPage.submitAdminForm('admin@zombieplus.com', 'wrong123')
     await popup.haveText(LOGIN_ERROR)
 })
 
 
-test('não deve logar quando email não é preenchido', async ({ loginPage }) => {
+test('should not log in when email is empty', async ({ loginPage }) => {
     await loginPage.submitAdminForm('', 'pwd123')
     await loginPage.alertHaveText(['Campo obrigatório'])
 })
 
 
-test('não deve logar quando senha não é preenchida', async ({ loginPage }) => {
+test('should not log in when password is empty', async ({ loginPage }) => {
     await loginPage.submitAdminForm('admin@zombieplus.com', '')
     await loginPage.alertHaveText(['Campo obrigatório'])
 })
 
 
-test('não deve logar quando nenhum campo é preenchido', async ({ loginPage }) => {
+test('should not log in when all fields are empty', async ({ loginPage }) => {
     await loginPage.submitAdminForm('', '')
     await loginPage.alertHaveText([
     'Campo obrigatório',

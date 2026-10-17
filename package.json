@@ -1,11 +1,14 @@
 {
   "name": "zombieplus",
   "version": "1.0.0",
-  "description": "",
+  "description": "Playwright E2E test automation for the Zombie Plus web app, built during the Playwright Zombie Edition course (QAxperience).",
   "main": "index.js",
   "scripts": {},
   "keywords": [],
-  "author": "",
+  "author": "Paula Marcondes",
+  "contributors": [
+    "Fernando Papito (course instructor)"
+  ],
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {

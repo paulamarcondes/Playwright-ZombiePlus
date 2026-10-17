@@ -1,17 +1,15 @@
-const { test, expect } = require('../support')
+const { test } = require('../support')
 
 const data = require('../support/fixtures/movies.json')
 
 const { executeSQL } = require('../support/database')
-const { MoviesPage } = require('../pages/MoviesPage')
 
 test.beforeAll(async () => {
     await executeSQL('DELETE FROM movies')
 })
 
 
-test('deve poder cadastrar um novo filme', async ({ loginPage, moviesPage, popup }) => {
-    // precisar estar logado
+test('should create a new movie', async ({ loginPage, moviesPage, popup }) => {
     const movie = data.createMovie
     await loginPage.doLogin('admin@zombieplus.com', 'pwd123')
     await moviesPage.createMovie(movie)
@@ -19,7 +17,7 @@ test('deve poder cadastrar um novo filme', async ({ loginPage, moviesPage, popup
 })
 
 
-test('deve poder remover um filme', async ({ loginPage, moviesPage, popup, api }) => {
+test('should remove a movie', async ({ loginPage, moviesPage, popup, api }) => {
     const movie = data.removeMovie
     await api.postMovie(movie)
     await loginPage.doLogin('admin@zombieplus.com', 'pwd123')
@@ -28,7 +26,7 @@ test('deve poder remover um filme', async ({ loginPage, moviesPage, popup, api }
 })
 
 
-test('não deve poder cadastrar um filme duplicado', async ({ loginPage, moviesPage, popup, api }) => {
+test('should not create a duplicate movie', async ({ loginPage, moviesPage, popup, api }) => {
     const movie = data.duplicateMovie
     await api.postMovie(movie)
     await loginPage.doLogin('admin@zombieplus.com', 'pwd123')
@@ -37,7 +35,7 @@ test('não deve poder cadastrar um filme duplicado', async ({ loginPage, moviesP
 })
 
 
-test('não deve poder cadastrar quando campos obrigatórios estiverem vazios', async ({ loginPage, moviesPage, popup }) => {
+test('should not create a movie when required fields are empty', async ({ loginPage, moviesPage }) => {
     await loginPage.doLogin('admin@zombieplus.com', 'pwd123')
     await moviesPage.goForm()
     await moviesPage.submitForm()
@@ -50,7 +48,7 @@ test('não deve poder cadastrar quando campos obrigatórios estiverem vazios', a
 })
 
 
-test('deve realizar busca pelo termo zumbi', async ({ loginPage, api, moviesPage, page }) => {
+test('should search movies by the term "zumbi"', async ({ loginPage, api, moviesPage }) => {
     const movies = data.searchMovie
     for (const m of movies.data) {
         await api.postMovie(m)

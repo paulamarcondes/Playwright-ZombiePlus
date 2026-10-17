@@ -8,7 +8,7 @@ test.beforeEach(async ({ landingPage }) => {
 })
 
 
-test('deve cadastrar um lead na fila de espera', async ({ landingPage, popup }) => {
+test('should register a lead in the waiting list', async ({ landingPage, popup }) => {
   const leadName = faker.person.fullName()
   const leadEmail = faker.internet.email()
   await landingPage.submitLeadForm(leadName, leadEmail)
@@ -16,7 +16,7 @@ test('deve cadastrar um lead na fila de espera', async ({ landingPage, popup }) 
 });
 
 
-test('não deve cadastrar um lead que já existe', async ({ landingPage, request, popup }) => {
+test('should not register a duplicate lead', async ({ landingPage, request, popup }) => {
   const leadName = faker.person.fullName()
   const leadEmail = faker.internet.email()
 
@@ -33,25 +33,25 @@ test('não deve cadastrar um lead que já existe', async ({ landingPage, request
 });
 
 
-test('não deve cadastrar um lead com email incorreto', async ({ landingPage }) => {
-  await landingPage.submitLeadForm('Teste Playwright', 'teste.com')
+test('should not register a lead with an invalid email', async ({ landingPage }) => {
+  await landingPage.submitLeadForm('Playwright Test', 'test.com')
   await landingPage.alertHaveText('Email incorreto')
 });
 
 
-test('não deve cadastrar um lead quando o nome não é preenchido', async ({ landingPage }) => {
-  await landingPage.submitLeadForm('', 'teste@test.com')
+test('should not register a lead when name is empty', async ({ landingPage }) => {
+  await landingPage.submitLeadForm('', 'test@test.com')
   await landingPage.alertHaveText('Campo obrigatório')
 });
 
 
-test('não deve cadastrar um lead quando o email não é preenchido', async ({ landingPage }) => {
-  await landingPage.submitLeadForm('Teste Playwright', '')
+test('should not register a lead when email is empty', async ({ landingPage }) => {
+  await landingPage.submitLeadForm('Playwright Test', '')
   await landingPage.alertHaveText('Campo obrigatório')
 });
 
 
-test('não deve cadastrar um lead quando nenhum campo é preenchido', async ({ landingPage }) => {
+test('should not register a lead when all fields are empty', async ({ landingPage }) => {
   await landingPage.submitLeadForm('', '')
   await landingPage.alertHaveText([
     'Campo obrigatório',
