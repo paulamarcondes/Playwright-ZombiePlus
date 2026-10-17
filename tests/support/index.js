@@ -3,6 +3,7 @@ const { test: base, expect } = require('@playwright/test')
 const { LandingPage } = require('../pages/LandingPage')
 const { LoginPage } = require('../pages/LoginPage')
 const { MoviesPage } = require('../pages/MoviesPage')
+const { SeriesPage } = require('../pages/SeriesPage')
 const { Popup } = require('../pages/Components')
 const { Api } = require('./api')
 
@@ -11,6 +12,7 @@ const { Api } = require('./api')
  * @property {LandingPage} landingPage
  * @property {LoginPage} loginPage
  * @property {MoviesPage} moviesPage
+ * @property {SeriesPage} seriesPage
  * @property {Popup} popup
  * @property {Api} api
  */
@@ -19,6 +21,7 @@ const test = base.extend(/** @type {import('@playwright/test').Fixtures<PageFixt
     landingPage: async ({ page }, use) => { await use(new LandingPage(page)) },
     loginPage: async ({ page }, use) => { await use(new LoginPage(page)) },
     moviesPage: async ({ page }, use) => { await use(new MoviesPage(page)) },
+    seriesPage: async ({ page }, use) => { await use(new SeriesPage(page)) },
     popup: async ({ page }, use) => { await use(new Popup(page)) },
     api: async ({ request }, use) => {
         const api = new Api(request)

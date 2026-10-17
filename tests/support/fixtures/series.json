@@ -1,0 +1,66 @@
+{
+  "createSeries": {
+    "title": "The Walking Dead",
+    "overview": "O policial Rick Grimes acorda de um coma e encontra o mundo dominado por zumbis, liderando um grupo de sobreviventes em busca de um lugar seguro.",
+    "company": "Fox Entertainment",
+    "release_year": 2010,
+    "seasons": 11,
+    "featured": true,
+    "cover": "/covers/series/the-walking-dead.jpg"
+  },
+  "duplicateSeries": {
+    "title": "Kingdom",
+    "overview": "Na Coreia medieval, um príncipe herdeiro investiga uma misteriosa praga que transforma os mortos em criaturas famintas.",
+    "company": "Netflix",
+    "release_year": 2019,
+    "seasons": 2,
+    "featured": true,
+    "cover": "/covers/series/kingdom.jpg"
+  },
+  "removeSeries": {
+    "title": "iZombie",
+    "overview": "Uma estudante de medicina vira zumbi e passa a trabalhar em um necrotério, onde come cérebros e herda as memórias das vítimas para ajudar a resolver crimes.",
+    "company": "Warner Bros. Pictures",
+    "release_year": 2015,
+    "seasons": 5,
+    "featured": false,
+    "cover": "/covers/series/izombie.jpg"
+  },
+  "searchSeries": {
+    "input": "dead",
+    "outputs": [
+      "Fear the Walking Dead",
+      "The Walking Dead: World Beyond",
+      "All of Us Are Dead"
+    ],
+    "data": [
+      {
+        "title": "Fear the Walking Dead",
+        "overview": "Em Los Angeles, uma família tenta sobreviver aos primeiros dias do apocalipse zumbi enquanto a sociedade entra em colapso.",
+        "company": "Fox Entertainment",
+        "release_year": 2015,
+        "seasons": 8,
+        "featured": true,
+        "cover": "/covers/series/fear-the-walking-dead.jpg"
+      },
+      {
+        "title": "The Walking Dead: World Beyond",
+        "overview": "Dez anos após o início do apocalipse, um grupo de jovens deixa sua comunidade protegida para enfrentar o mundo dos mortos-vivos.",
+        "company": "Fox Entertainment",
+        "release_year": 2020,
+        "seasons": 2,
+        "featured": false,
+        "cover": "/covers/series/world-beyond.jpg"
+      },
+      {
+        "title": "All of Us Are Dead",
+        "overview": "Um grupo de estudantes fica preso em uma escola durante um surto de vírus zumbi e precisa lutar para sobreviver.",
+        "company": "Netflix",
+        "release_year": 2022,
+        "seasons": 1,
+        "featured": true,
+        "cover": "/covers/series/all-of-us-are-dead.jpg"
+      }
+    ]
+  }
+}
