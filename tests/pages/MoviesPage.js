@@ -31,4 +31,10 @@ export class MoviesPage {
         }
         await this.submitForm()
     }
+
+    async removeMovie(title) {
+        await this.page.getByRole('row', {name: title}).getByRole('button').click()
+        await this.page.click('.confirm-removal')
+    }
+
 }

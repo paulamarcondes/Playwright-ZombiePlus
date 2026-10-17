@@ -1,32 +1,35 @@
 ![poster](https://raw.githubusercontent.com/qaxperience/thumbnails/main/playwright-zombie.png)
 
-## 🤘 Sobre
+## 🤘 About
 
-Repositório do projeto de testes automatizados do sistema Zombie Plus, construído no curso Playwright Zombie Edition! O Playwright é uma ferramenta de código aberto desenvolvida pela Microsoft que revoluciona a automação de testes em sistemas web, oferecendo uma abordagem eficaz e altamente confiável.
+Repository for the Zombie Plus automated testing project, built during the Playwright Zombie Edition course! Playwright is an open-source tool developed by Microsoft that revolutionizes test automation for web systems, offering an effective and highly reliable approach.
 
-## 💻 Tecnologias
+
+## 💻 Technologies
 - Node.js
 - Playwright
 - Javascript
 - Faker
 - PostgreSQL
+- Docker
 
-## 🤖 Como executar
 
-1. Clonar o repositório, instalar as dependências
+## 🤖 How to run
+
+1. Clone the repository and install the dependencies
 ```
 npm install
 ```
 
-2. Executar testes em Headless
+2. Run the tests in headless mode
 ```
 npx playwright test 
 ```
 
-3. Executar ver o relatório dos testes
+3. View the test report
 ```
 npx playwright show-report
 ```
 
 <hr>
-Curso disponível em https://qaxperience.com
+Course available at https://qaxperience.com

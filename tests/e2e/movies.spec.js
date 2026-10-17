@@ -8,30 +8,38 @@ test.beforeAll(async () => {
     await executeSQL('DELETE FROM movies')
 })
 
-test('deve poder cadastrar um novo filme', async ({ loginPage, moviesPage, toast }) => {
+test('deve poder cadastrar um novo filme', async ({ loginPage, moviesPage, popup }) => {
     // precisar estar logado
     const movie = data.createMovie
     await loginPage.doLogin('admin@zombieplus.com', 'pwd123')
     await moviesPage.createMovie(movie)
-    await toast.containText('Cadastro realizado com sucesso!')
+    await popup.haveText(`O filme '${movie.title}' foi adicionado ao catálogo.`)
 })
 
-test('não deve poder cadastrar um filme duplicado', async ({ loginPage, moviesPage, toast, api }) => {
+test('deve poder remover um filme', async ({ loginPage, moviesPage, popup, api }) => {
+    const movie = data.removeMovie
+    await api.postMovie(movie)
+    await loginPage.doLogin('admin@zombieplus.com', 'pwd123')
+    await moviesPage.removeMovie(movie.title)
+    await popup.haveText('Filme removido com sucesso.')
+})
+
+test('não deve poder cadastrar um filme duplicado', async ({ loginPage, moviesPage, popup, api }) => {
     const movie = data.duplicateMovie
     await api.postMovie(movie)
     await loginPage.doLogin('admin@zombieplus.com', 'pwd123')
     await moviesPage.createMovie(movie)
-    await toast.containText('Este conteúdo já encontra-se cadastrado no catálogo')
+    await popup.haveText(`O título '${movie.title}' já consta em nosso catálogo. Por favor, verifique se há necessidade de atualizações ou correções para este item.`)
 })
 
-test('não deve poder cadastrar quando campos obrigatórios estiverem vazios', async ({ loginPage, moviesPage, toast }) => {
+test('não deve poder cadastrar quando campos obrigatórios estiverem vazios', async ({ loginPage, moviesPage, popup }) => {
     await loginPage.doLogin('admin@zombieplus.com', 'pwd123')
     await moviesPage.goForm()
     await moviesPage.submitForm()
     await moviesPage.alertHaveText([
-        'Por favor, informe o título.',
-        'Por favor, informe a sinopse.',
-        'Por favor, informe a empresa distribuidora.',
-        'Por favor, informe o ano de lançamento.'
+        'Campo obrigatório',
+        'Campo obrigatório',
+        'Campo obrigatório',
+        'Campo obrigatório'
     ])
 })

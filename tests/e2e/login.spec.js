@@ -1,6 +1,6 @@
 const { test } = require('../support')
 
-const LOGIN_ERROR = "Oops!Ocorreu um erro ao tentar efetuar o login. Por favor, verifique suas credenciais e tente novamente."
+const LOGIN_ERROR = "Ocorreu um erro ao tentar efetuar o login. Por favor, verifique suas credenciais e tente novamente."
 
 test.beforeEach(async ({ loginPage }) => {
     await loginPage.visit()
@@ -11,15 +11,15 @@ test('deve logar como adminstrador', async ({ loginPage }) => {
     await loginPage.isLoggedIn()
 })
 
-test('não deve logar com email incorreto', async ({ loginPage, toast }) => {
+test('não deve logar com email incorreto', async ({ loginPage, popup }) => {
     await loginPage.submitAdminForm('errado@zombieplus.com', 'pwd123')
-    await toast.containText(LOGIN_ERROR)
+    await popup.haveText(LOGIN_ERROR)
 })
 
 
-test('não deve logar com senha incorreta', async ({ loginPage, toast }) => {
+test('não deve logar com senha incorreta', async ({ loginPage, popup }) => {
     await loginPage.submitAdminForm('admin@zombieplus.com', 'errado123')
-    await toast.containText(LOGIN_ERROR)
+    await popup.haveText(LOGIN_ERROR)
 })
 
 

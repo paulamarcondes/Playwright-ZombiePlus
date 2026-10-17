@@ -31,6 +31,6 @@ export class LoginPage {
     }
 
     async alertHaveText(text) {
-        await expect(this.page.locator('.email-alert, .password-alert')).toHaveText(text)
+        await expect(this.page.locator('span.alert')).toHaveText(text)
     }
 }

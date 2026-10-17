@@ -7,15 +7,15 @@ test.beforeEach(async ({ landingPage }) => {
   await landingPage.openLeadModal()
 })
 
-test('deve cadastrar um lead na fila de espera', async ({ landingPage, toast }) => {
+test('deve cadastrar um lead na fila de espera', async ({ landingPage, popup }) => {
   const leadName = faker.person.fullName()
   const leadEmail = faker.internet.email()
   await landingPage.submitLeadForm(leadName, leadEmail)
-  await toast.containText('Agradecemos por compartilhar seus dados conosco. Em breve, nossa equipe entrará em contato!')
+  await popup.haveText('Agradecemos por compartilhar seus dados conosco. Em breve, nossa equipe entrará em contato.')
 });
 
 
-test('não deve cadastrar um lead que já existe', async ({ landingPage, request, toast }) => {
+test('não deve cadastrar um lead que já existe', async ({ landingPage, request, popup }) => {
   const leadName = faker.person.fullName()
   const leadEmail = faker.internet.email()
 
@@ -28,7 +28,7 @@ test('não deve cadastrar um lead que já existe', async ({ landingPage, request
   expect(newLead.ok()).toBeTruthy()
 
   await landingPage.submitLeadForm(leadName, leadEmail)
-  await toast.containText('O endereço de e-mail fornecido já está registrado em nossa fila de espera.')
+  await popup.haveText('Verificamos que o endereço de e-mail fornecido já consta em nossa lista de espera. Isso significa que você está um passo mais perto de aproveitar nossos serviços.')
 });
 
 
