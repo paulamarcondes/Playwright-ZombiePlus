@@ -1,4 +1,6 @@
 const { expect } = require('@playwright/test')
+const fs = require('fs')
+const path = require('path')
 
 export class Api {
     constructor(request) {
@@ -38,7 +40,6 @@ export class Api {
         const response = await this.request.post('http://localhost:3333/movies', {
             headers: {
                 Authorization: `Bearer ${this.token}`,
-                ContentType: 'multipart/form-data',
                 Accept: 'application/json, text/plain, */*'
             },
             multipart: {
@@ -46,7 +47,8 @@ export class Api {
                 overview: movie.overview,
                 company_id: companyId,
                 release_year: movie.release_year,
-                featured: movie.featured
+                featured: movie.featured,
+                cover: fs.createReadStream(path.resolve('tests/support/fixtures' + movie.cover))
             }
         })
         expect(response.ok()).toBeTruthy()
