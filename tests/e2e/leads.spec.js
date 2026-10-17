@@ -7,6 +7,7 @@ test.beforeEach(async ({ landingPage }) => {
   await landingPage.openLeadModal()
 })
 
+
 test('deve cadastrar um lead na fila de espera', async ({ landingPage, popup }) => {
   const leadName = faker.person.fullName()
   const leadEmail = faker.internet.email()
@@ -56,4 +57,4 @@ test('não deve cadastrar um lead quando nenhum campo é preenchido', async ({ l
     'Campo obrigatório',
     'Campo obrigatório'
   ])
-});
+})

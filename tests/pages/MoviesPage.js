@@ -32,9 +32,18 @@ export class MoviesPage {
         await this.submitForm()
     }
 
-    async removeMovie(title) {
-        await this.page.getByRole('row', {name: title}).getByRole('button').click()
-        await this.page.click('.confirm-removal')
+    async searchMovie(target) {
+        await this.page.getByPlaceholder('Busque pelo nome').fill(target)
+        await this.page.click('.actions')
     }
 
+    async tableHave(content) {
+        const rows = this.page.getByRole('row')
+        await expect(rows).toContainText(content)
+    }
+
+    async removeMovie(title) {
+        await this.page.getByRole('row', { name: title }).getByRole('button').click()
+        await this.page.click('.confirm-removal')
+    }
 }

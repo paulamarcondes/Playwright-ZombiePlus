@@ -6,10 +6,12 @@ test.beforeEach(async ({ loginPage }) => {
     await loginPage.visit()
 })
 
+
 test('deve logar como adminstrador', async ({ loginPage }) => {
     await loginPage.submitAdminForm('admin@zombieplus.com', 'pwd123')
     await loginPage.isLoggedIn()
 })
+
 
 test('não deve logar com email incorreto', async ({ loginPage, popup }) => {
     await loginPage.submitAdminForm('errado@zombieplus.com', 'pwd123')

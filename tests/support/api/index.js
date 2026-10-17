@@ -51,6 +51,4 @@ export class Api {
         })
         expect(response.ok()).toBeTruthy()
     }
-
-
 }
