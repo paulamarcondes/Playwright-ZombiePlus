@@ -2,12 +2,10 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Read environment variables from file.
+ * Read environment variables from .env (loaded once for all tests).
  * https://github.com/motdotla/dotenv
  */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+import 'dotenv/config';
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -23,14 +21,20 @@ export default defineConfig({
   /* Single worker: all tests share one database, so parallel runs would collide. */
   workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: [
+    // ['list'],
+    ['html']
+  ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
-    // baseURL: 'http://localhost:3000',
+    baseURL: process.env.BASE_URL,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    screenshot: 'on-first-failure',
+    // video: 'retain-on-first-failure',
+    viewport: { width: 1440, height: 900 }
   },
 
   /* Configure projects for major browsers */

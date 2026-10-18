@@ -9,20 +9,19 @@ export class Api {
     }
 
     async setToken() {
-        const response = await this.request.post('http://localhost:3333/sessions', {
+        const response = await this.request.post(`${process.env.BASE_API}/sessions`, {
             data: {
-                email: 'admin@zombieplus.com',
-                password: 'pwd123'
+                email: process.env.ADMIN_EMAIL,
+                password: process.env.ADMIN_PASSWORD
             }
         })
         expect(response.status()).toBe(200)
         const body = JSON.parse(await response.text())
         this.token = body.token
-        console.log(this.token)
     }
 
     async getCompanyIdByName(companyName) {
-        const response = await this.request.get('http://localhost:3333/companies', {
+        const response = await this.request.get(`${process.env.BASE_API}/companies`, {
             headers: {
                 Authorization: `Bearer ${this.token}`,
             },
@@ -37,7 +36,7 @@ export class Api {
 
     async postMovie(movie) {
         const companyId = await this.getCompanyIdByName(movie.company)
-        const response = await this.request.post('http://localhost:3333/movies', {
+        const response = await this.request.post(`${process.env.BASE_API}/movies`, {
             headers: {
                 Authorization: `Bearer ${this.token}`,
                 Accept: 'application/json, text/plain, */*'
@@ -56,7 +55,7 @@ export class Api {
 
     async postSeries(series) {
         const companyId = await this.getCompanyIdByName(series.company)
-        const response = await this.request.post('http://localhost:3333/tvshows', {
+        const response = await this.request.post(`${process.env.BASE_API}/tvshows`, {
             headers: {
                 Authorization: `Bearer ${this.token}`,
                 Accept: 'application/json, text/plain, */*'

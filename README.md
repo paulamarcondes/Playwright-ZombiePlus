@@ -1,4 +1,4 @@
-![poster](https://raw.githubusercontent.com/qaxperience/thumbnails/main/playwright-zombie.png)
+![Zombie Plus covers](./docs/covers.jpg)
 
 
 # Zombie Plus - Playwright E2E Tests
@@ -9,7 +9,7 @@ End-to-end test automation for **Zombie Plus**, a Halloween-inspired zombie movi
 ## About
 
 - Built during the **Playwright Zombie Edition** course, taught by **Fernando Papito**.
-- Part of my QA portfolio, showcasing just a little bit of my Playwright automation practices.
+- Part of my QA portfolio, showcasing my Playwright automation practices.
 - The app under test is in Portuguese (pt-BR), so UI texts, alerts, and test data are kept in Portuguese. Code, test titles, and docs are in English.
 
 
@@ -36,59 +36,69 @@ End-to-end test automation for **Zombie Plus**, a Halloween-inspired zombie movi
 - **Dynamic test data** - Faker for unique leads; JSON fixtures and cover images for movies and series ([tests/support/fixtures](tests/support/fixtures))
 
 
-## Project structure
-
-```
-docs/                  Regression tests and roadmap (PDF)
-tests/
-├── e2e/               Test suites (*.spec.js)
-├── pages/             Page Objects
-└── support/
-    ├── api/           API client for test setup
-    ├── fixtures/      JSON test data + cover images
-    ├── database.js    PostgreSQL helper
-    └── index.js       Custom fixtures
-playwright.config.js   Browsers, workers, reporter
-```
-
-
 ## Technologies
 
 - Node.js
-- Playwright
 - JavaScript
+- Playwright
 - Faker
+- dotenv
 - PostgreSQL
 - Docker
 
 
 ## How to run
 
-**Prerequisites:** the Zombie Plus app, API, and database (provided by the course) running locally:
+**Prerequisites:** the Zombie Plus App, API, and Database (provided by the course) running locally:
 
 | Service | URL |
 |---|---|
-| Web app | http://localhost:3000 |
+| Web App | http://localhost:3000 |
 | API | http://localhost:3333 |
 | pgAdmin (DB admin UI) | http://localhost:16543 |
 | PostgreSQL | localhost:5432 |
 
-1. Clone the repository and install the dependencies
+
+### Commands
+
+1. Start the Database and pgAdmin (/apps/zombieplus-apps/)
+```
+docker compose up -d
+```
+
+2. Start the API and the Web App, one terminal each (/apps/zombieplus-apps/api/ and /apps/zombieplus-apps/web/)
+```
+npm run dev
+```
+
+3. Clone the repository
+```
+git clone https://github.com/paulamarcondes/Playwright-ZombiePlus.git zombieplus
+```
+
+4. Install this project's dependencies (/zombieplus/)
 ```
 npm install
 ```
 
-2. Run the tests in headless mode
+5. Run the tests (CLI) (/zombieplus/)
 ```
 npx playwright test
 ```
 
-3. View the test report
+6. Run the tests (UI Mode) (/zombieplus/)
+```
+npx playwright test --ui
+```
+
+7. View the test report (/zombieplus/)
 ```
 npx playwright show-report
 ```
 
+> **NOTE:** `.env` is committed on purpose - it holds only the course app's local default credentials.
+
 
 ## Credits
-
-Course and App by instructor **Fernando Papito**.
+- E2E project by [Paula Marcondes](https://www.linkedin.com/in/paulamarcondes/)
+- Course and Web App by instructor [Fernando Papito](https://fernandopapito.com/)

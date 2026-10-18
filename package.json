@@ -16,5 +16,8 @@
     "@playwright/test": "^1.64.0",
     "@types/node": "^26.6.5",
     "pg": "^8.23.1"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.8"
   }
 }

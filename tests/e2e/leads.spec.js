@@ -1,10 +1,14 @@
 const { test, expect } = require('../support')
 const { faker } = require('@faker-js/faker')
-
+const { executeSQL } = require('../support/database')
 
 test.beforeEach(async ({ landingPage }) => {
   await landingPage.visit()
   await landingPage.openLeadModal()
+})
+
+test.beforeAll(async () => {
+    await executeSQL('DELETE FROM leads')
 })
 
 
@@ -20,7 +24,7 @@ test('should not register a duplicate lead', async ({ landingPage, request, popu
   const leadName = faker.person.fullName()
   const leadEmail = faker.internet.email()
 
-  const newLead = await request.post('http://localhost:3333/leads', {
+  const newLead = await request.post(`${process.env.BASE_API}/leads`, {
     data: {
       email: leadEmail,
       name: leadName
