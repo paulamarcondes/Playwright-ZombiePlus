@@ -49,7 +49,17 @@ End-to-end test automation for **Zombie Plus**, a Halloween-inspired zombie movi
 
 ## How to run
 
-**Prerequisites:** the Zombie Plus App, API, and Database (provided by the course) running locally:
+Running the tests needs **two separate things**:
+
+| Part | What it is | Where it comes from |
+|---|---|---|
+| **A. Course environment** | Zombie Plus Web App, API, and Database (the system under test) | Course material - **not in this repo** |
+| **B. Test project** | Playwright tests | **This repo** |
+
+> **IMPORTANT:** Part A must be running before you run any command in Part B. Otherwise all tests fail.
+
+
+### A. Start the course environment (course material required)
 
 | Service | URL |
 |---|---|
@@ -58,45 +68,44 @@ End-to-end test automation for **Zombie Plus**, a Halloween-inspired zombie movi
 | pgAdmin (DB admin UI) | http://localhost:16543 |
 | PostgreSQL | localhost:5432 |
 
+1. Start the Database and pgAdmin  
+   Run in: `<course-material>/apps/zombieplus/`
+   ```
+   docker compose up -d
+   ```
 
-### Commands
+2. Start the API (terminal 1)  
+   Run in: `<course-material>/apps/zombieplus/api/`
+   ```
+   npm run dev
+   ```
 
-1. Start the Database and pgAdmin (/apps/zombieplus-apps/)
-```
-docker compose up -d
-```
+3. Start the Web App (terminal 2)  
+   Run in: `<course-material>/apps/zombieplus/web/`
+   ```
+   npm run dev
+   ```
 
-2. Start the API and the Web App, one terminal each (/apps/zombieplus-apps/api/ and /apps/zombieplus-apps/web/)
-```
-npm run dev
-```
 
-3. Clone the repository
-```
-git clone https://github.com/paulamarcondes/Playwright-ZombiePlus.git zombieplus
-```
+### B. Run the tests (this repo)
 
-4. Install this project's dependencies (/zombieplus/)
-```
-npm install
-```
+1. Clone and install
+   ```
+   git clone https://github.com/paulamarcondes/Playwright-ZombiePlus.git zombieplus
+   cd zombieplus
+   npm install
+   ```
 
-5. Run the tests (CLI) (/zombieplus/)
-```
-npx playwright test
-```
+2. Choose how to run them  
+   Run in: `<this repo>/zombieplus/` (repo root)
 
-6. Run the tests (UI Mode) (/zombieplus/)
-```
-npx playwright test --ui
-```
+| Goal | Command |
+|---|---|
+| Run all tests (CLI) | `npx playwright test` |
+| Run tests in UI Mode | `npx playwright test --ui` |
+| Open the last HTML report | `npx playwright show-report` |
 
-7. View the test report (/zombieplus/)
-```
-npx playwright show-report
-```
-
-> **NOTE:** `.env` is committed on purpose - it holds only the course app's local default credentials.
+> **NOTE:** no `.env` setup needed. `.env` is committed on purpose - it holds only the course app's local default credentials.
 
 
 ## Credits

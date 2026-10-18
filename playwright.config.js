@@ -34,7 +34,6 @@ export default defineConfig({
     trace: 'on-first-retry',
     screenshot: 'on-first-failure',
     // video: 'retain-on-first-failure',
-    viewport: { width: 1440, height: 900 }
   },
 
   /* Configure projects for major browsers */
@@ -75,11 +74,4 @@ export default defineConfig({
     // },
   ],
 
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
 });
-
