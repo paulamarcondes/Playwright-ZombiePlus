@@ -9,7 +9,7 @@ End-to-end test automation for **Zombie Plus**, a Halloween-inspired zombie movi
 ## About
 
 - Built during the **Playwright Zombie Edition** course, taught by **Fernando Papito**.
-- Part of my QA portfolio, showcasing my Playwright automation practices.
+- Part of my QA portfolio, showcasing my Playwright automation and TypeScript practices.
 - The app under test is in Portuguese (pt-BR), so UI texts, alerts, and test data are kept in Portuguese. Code, test titles, and docs are in English.
 
 
@@ -17,10 +17,10 @@ End-to-end test automation for **Zombie Plus**, a Halloween-inspired zombie movi
 
 | Suite | File | Scenarios |
 |---|---|---|
-| Leads (waiting list) | [leads.spec.js](tests/e2e/leads.spec.js) | Register a lead, duplicate lead, invalid email, required fields |
-| Login (admin) | [login.spec.js](tests/e2e/login.spec.js) | Valid login, wrong email, wrong password, required fields |
-| Movies (admin) | [movies.spec.js](tests/e2e/movies.spec.js) | Create, remove, duplicate, required fields, search |
-| Series (admin) | [series.spec.js](tests/e2e/series.spec.js) | Create, remove, duplicate, required fields, search |
+| Leads (waiting list) | [leads.spec.ts](tests/e2e/leads.spec.ts) | Register a lead, duplicate lead, invalid email, required fields |
+| Login (admin) | [login.spec.ts](tests/e2e/login.spec.ts) | Valid login, wrong email, wrong password, required fields |
+| Movies (admin) | [movies.spec.ts](tests/e2e/movies.spec.ts) | Create, remove, duplicate, required fields, search |
+| Series (admin) | [series.spec.ts](tests/e2e/series.spec.ts) | Create, remove, duplicate, required fields, search |
 
 **22 tests**, run on Chromium, Firefox, and WebKit.
 
@@ -29,17 +29,19 @@ End-to-end test automation for **Zombie Plus**, a Halloween-inspired zombie movi
 
 ## Highlights
 
+- **TypeScript (strict)** - type-checked with `npm run typecheck` ([tsconfig.json](tsconfig.json))
 - **Page Object Model** - page classes in [tests/pages](tests/pages)
-- **Custom fixtures** - pages and API client injected into tests ([tests/support/index.js](tests/support/index.js))
+- **Custom fixtures** - typed pages and API client injected into tests ([tests/support/index.ts](tests/support/index.ts))
+- **Validated config** - `.env` loaded and checked at startup; a missing variable fails fast ([tests/support/env.ts](tests/support/env.ts))
 - **API setup** - test data created via REST API for faster, independent tests ([tests/support/api](tests/support/api))
-- **Database cleanup** - PostgreSQL reset before the movies and series suites ([tests/support/database.js](tests/support/database.js))
-- **Dynamic test data** - Faker for unique leads; JSON fixtures and cover images for movies and series ([tests/support/fixtures](tests/support/fixtures))
+- **Database cleanup** - PostgreSQL reset before the leads, movies, and series suites ([tests/support/database.ts](tests/support/database.ts))
+- **Dynamic test data** - Faker for unique leads; typed JSON fixtures and cover images for movies and series ([tests/support/fixtures](tests/support/fixtures))
 
 
 ## Technologies
 
 - Node.js
-- JavaScript
+- TypeScript
 - Playwright
 - Faker
 - dotenv
@@ -48,6 +50,10 @@ End-to-end test automation for **Zombie Plus**, a Halloween-inspired zombie movi
 
 
 ## How to run
+
+**Prerequisites:**
+- Node.js (tested with v24)
+- Docker (for the course environment)
 
 Running the tests needs **two separate things**:
 
@@ -89,23 +95,26 @@ Running the tests needs **two separate things**:
 
 ### B. Run the tests (this repo)
 
-1. Clone and install
+1. Clone, then install dependencies and browsers
    ```
    git clone https://github.com/paulamarcondes/Playwright-ZombiePlus.git zombieplus
    cd zombieplus
    npm install
+   npx playwright install
    ```
+   > **NOTE:** no `.env` setup needed. `.env` is committed on purpose - it holds only the course app's local default credentials.
 
 2. Choose how to run them  
-   Run in: `<this repo>/zombieplus/` (repo root)
+   Run in: `zombieplus/` (repo root)
 
 | Goal | Command |
 |---|---|
-| Run all tests (CLI) | `npx playwright test` |
-| Run tests in UI Mode | `npx playwright test --ui` |
-| Open the last HTML report | `npx playwright show-report` |
+| Run all tests (CLI) | `npm test` |
+| Run tests in UI Mode | `npm run test:ui` |
+| Open the last HTML report | `npm run report` |
+| Type-check the code | `npm run typecheck` |
 
-> **NOTE:** no `.env` setup needed. `.env` is committed on purpose - it holds only the course app's local default credentials.
+> **NOTE:** Playwright runs `.ts` files directly but does **not** type-check them. Run `npm run typecheck` to catch type errors.
 
 
 ## Credits

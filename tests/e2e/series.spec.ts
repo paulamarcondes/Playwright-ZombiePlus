@@ -1,8 +1,7 @@
-const { test } = require('../support')
-
-const data = require('../support/fixtures/series.json')
-
-const { executeSQL } = require('../support/database')
+import { test } from '../support'
+import { env } from '../support/env'
+import { executeSQL } from '../support/database'
+import data from '../support/fixtures/series.json'
 
 test.beforeAll(async () => {
     await executeSQL('DELETE FROM tvshows')
@@ -11,7 +10,7 @@ test.beforeAll(async () => {
 
 test('should create new series', async ({ loginPage, seriesPage, popup }) => {
     const series = data.createSeries
-    await loginPage.doLogin(process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD)
+    await loginPage.doLogin(env.adminEmail, env.adminPassword)
     await seriesPage.createSeries(series)
     await popup.haveText(`A série '${series.title}' foi adicionada ao catálogo.`)
 })
@@ -20,7 +19,7 @@ test('should create new series', async ({ loginPage, seriesPage, popup }) => {
 test('should remove series', async ({ loginPage, seriesPage, popup, api }) => {
     const series = data.removeSeries
     await api.postSeries(series)
-    await loginPage.doLogin(process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD)
+    await loginPage.doLogin(env.adminEmail, env.adminPassword)
     await seriesPage.removeSeries(series.title)
     await popup.haveText('Série removida com sucesso.')
 })
@@ -29,14 +28,14 @@ test('should remove series', async ({ loginPage, seriesPage, popup, api }) => {
 test('should not create duplicate series', async ({ loginPage, seriesPage, popup, api }) => {
     const series = data.duplicateSeries
     await api.postSeries(series)
-    await loginPage.doLogin(process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD)
+    await loginPage.doLogin(env.adminEmail, env.adminPassword)
     await seriesPage.createSeries(series)
     await popup.haveText(`O título '${series.title}' já consta em nosso catálogo. Por favor, verifique se há necessidade de atualizações ou correções para este item.`)
 })
 
 
 test('should not create series when required fields are empty', async ({ loginPage, seriesPage }) => {
-    await loginPage.doLogin(process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD)
+    await loginPage.doLogin(env.adminEmail, env.adminPassword)
     await seriesPage.goForm()
     await seriesPage.submitForm()
     await seriesPage.alertHaveText([
@@ -51,10 +50,10 @@ test('should not create series when required fields are empty', async ({ loginPa
 
 test('should search series by the term "dead"', async ({ loginPage, api, seriesPage }) => {
     const series = data.searchSeries
-    for (const m of series.data) {
-        await api.postSeries(m)
+    for (const s of series.data) {
+        await api.postSeries(s)
     }
-    await loginPage.doLogin(process.env.ADMIN_EMAIL, process.env.ADMIN_PASSWORD)
+    await loginPage.doLogin(env.adminEmail, env.adminPassword)
     await seriesPage.searchSeries(series.input)
     await seriesPage.tableHave(series.outputs)
 })

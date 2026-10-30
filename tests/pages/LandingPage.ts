@@ -1,13 +1,16 @@
-const { expect } = require('@playwright/test')
+import { expect, Page } from '@playwright/test'
 
-class LandingPage {
+export class LandingPage {
+    readonly page: Page
 
-    constructor(page) {
+    constructor(page: Page) {
         this.page = page
     }
 
     async visit() {
+        const catalogLoaded = this.page.waitForResponse('**/catalog')
         await this.page.goto('/')
+        await catalogLoaded
     }
 
     async openLeadModal() {
@@ -15,15 +18,13 @@ class LandingPage {
         await expect(this.page.getByTestId('modal').getByRole('heading')).toHaveText('Fila de espera')
     }
 
-    async submitLeadForm(name, email) {
+    async submitLeadForm(name: string, email: string) {
         await this.page.getByPlaceholder('Informe seu nome').fill(name)
         await this.page.getByPlaceholder('Informe seu email').fill(email)
-        await this.page.getByText('Quero entrar na fila!').click()
+        await this.page.getByRole('button', { name: 'Quero entrar na fila!' }).click()
     }
 
-    async alertHaveText(target) {
+    async alertHaveText(target: string | string[]) {
         await expect(this.page.locator('.alert')).toHaveText(target)
     }
 }
-
-module.exports = { LandingPage }

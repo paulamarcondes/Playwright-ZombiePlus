@@ -1,12 +1,13 @@
-const { expect } = require('@playwright/test')
+import { expect, Page } from '@playwright/test'
 
 export class LoginPage {
+    readonly page: Page
 
-    constructor(page) {
+    constructor(page: Page) {
         this.page = page
     }
 
-    async doLogin(email, password) {
+    async doLogin(email: string, password: string) {
         await this.visit()
         await this.submitAdminForm(email, password)
         await this.isLoggedIn()
@@ -19,18 +20,17 @@ export class LoginPage {
         await expect(loginForm).toBeVisible()
     }
 
-    async submitAdminForm(email, password) {
+    async submitAdminForm(email: string, password: string) {
         await this.page.getByPlaceholder('E-mail').fill(email)
         await this.page.getByPlaceholder('Senha').fill(password)
-        await this.page.getByText('Entrar').click()
+        await this.page.getByRole('button', { name: 'Entrar' }).click()
     }
 
     async isLoggedIn() {
-        await this.page.waitForLoadState('networkidle')
-        await expect(this.page).toHaveURL(/.*admin/)
+        await expect(this.page).toHaveURL(/\/admin\/movies/)
     }
 
-    async alertHaveText(text) {
-        await expect(this.page.locator('span.alert')).toHaveText(text)
+    async alertHaveText(target: string | string[]) {
+        await expect(this.page.locator('.alert')).toHaveText(target)
     }
 }
